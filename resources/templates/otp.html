@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>otp</title>
+</head>
+<body>
+	<div align="center">
+		<h1>enter otp</h1>
+		<form action="/otp" method="post">
+			<input type="hidden" name="email" th:value="${email}">
+			<input type="number" name="otp" placeholder="Enter Otp">
+			<button>Submit</button>
+		</form>
+	</div>
+	
+	<script type="text/javascript" th:if="${message}">
+		alert("[[${message}]]");
+	</script>
+</body>
+</html>
