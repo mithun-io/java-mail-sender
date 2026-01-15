@@ -43,7 +43,7 @@ public class EmailController {
 		return new Random().nextInt(100000, 1000000);
 	}
 
-		private int getFromRedis(String email) {
+	private int getFromRedis(String email) {
 		String otp = redisTemplate.opsForValue().get(email);
 		if (otp != null)
 			return Integer.parseInt(otp);
@@ -109,5 +109,6 @@ public class EmailController {
 	}
 
 }
+
 
 
