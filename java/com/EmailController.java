@@ -43,34 +43,7 @@ public class EmailController {
 		return new Random().nextInt(100000, 1000000);
 	}
 
-	@GetMapping("/send-otp")
-	public String sendOtp(UserDto dto, RedirectAttributes attributes) {
-		int otp = generateOtp();
-		sendEmail(otp, dto);
-		storeInRedis(dto.getEmail(), otp);
-		attributes.addFlashAttribute("email", dto.getEmail());
-		return "redirect:/otp";
-	}
-
-	@PostMapping("/otp")
-	public String otp(@RequestParam String email, @RequestParam int otp, RedirectAttributes attributes) {
-		int storedOtp = getFromRedis(email);
-		if (storedOtp == 0) {
-			attributes.addFlashAttribute("message", "otp expired, please try again");
-			return "redirect:/";
-		} else {
-			if (storedOtp == otp) {
-				attributes.addFlashAttribute("message", "successfully registered");
-				return "redirect:/welcome";
-			} else {
-				attributes.addFlashAttribute("message", "otp mismatch");
-				attributes.addFlashAttribute("email", email);
-				return "redirect:/otp";
-			}
-		}
-	}
-
-	private int getFromRedis(String email) {
+		private int getFromRedis(String email) {
 		String otp = redisTemplate.opsForValue().get(email);
 		if (otp != null)
 			return Integer.parseInt(otp);
@@ -107,5 +80,34 @@ public class EmailController {
 			e.printStackTrace();
 		}
 	}
+
+	@GetMapping("/send-otp")
+	public String sendOtp(UserDto dto, RedirectAttributes attributes) {
+		int otp = generateOtp();
+		sendEmail(otp, dto);
+		storeInRedis(dto.getEmail(), otp);
+		attributes.addFlashAttribute("email", dto.getEmail());
+		return "redirect:/otp";
+	}
+
+	@PostMapping("/otp")
+	public String otp(@RequestParam String email, @RequestParam int otp, RedirectAttributes attributes) {
+		int storedOtp = getFromRedis(email);
+		if (storedOtp == 0) {
+			attributes.addFlashAttribute("message", "otp expired, please try again");
+			return "redirect:/";
+		} else {
+			if (storedOtp == otp) {
+				attributes.addFlashAttribute("message", "successfully registered");
+				return "redirect:/welcome";
+			} else {
+				attributes.addFlashAttribute("message", "otp mismatch");
+				attributes.addFlashAttribute("email", email);
+				return "redirect:/otp";
+			}
+		}
+	}
+
 }
+
 
