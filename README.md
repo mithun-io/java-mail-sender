@@ -4,14 +4,13 @@
 ### https://github.com/microsoftarchive/redis/releases/download/win-3.0.504/Redis-x64-3.0.504.msi
 
 ### checking redis installation
-C:\Users>cd ..
-C:\>cd "Program Files"
-C:\Program Files>cd Redis
-
-C:\Program Files\Redis>redis-cli.exe
-127.0.0.1:6379> ping
-PONG
-127.0.0.1:6379>
+#### C:\Users>cd ..
+#### C:\>cd "Program Files"
+#### C:\Program Files>cd Redis
+#### C:\Program Files\Redis>redis-cli.exe
+#### 127.0.0.1:6379> ping
+#### PONG
+#### 127.0.0.1:6379>
 
 ## create a project and add dependencies
 1. java mail sender
