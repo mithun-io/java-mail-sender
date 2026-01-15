@@ -39,6 +39,10 @@ public class EmailController {
 		return "otp.html";
 	}
 
+	private int generateOtp() {
+		return new Random().nextInt(100000, 1000000);
+	}
+
 	@GetMapping("/send-otp")
 	public String sendOtp(UserDto dto, RedirectAttributes attributes) {
 		int otp = generateOtp();
@@ -103,8 +107,5 @@ public class EmailController {
 			e.printStackTrace();
 		}
 	}
-
-	private int generateOtp() {
-		return new Random().nextInt(100000, 1000000);
-	}
 }
+
